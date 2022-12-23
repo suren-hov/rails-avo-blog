@@ -1,7 +1,7 @@
 # For more information regarding these settings check out our docs https://docs.avohq.io
 Avo.configure do |config|
   ## == Routing ==
-  config.root_path = '/admin'
+  config.root_path = '/'
 
   # Where should the user be redirected when visting the `/avo` url
   # config.home_path = nil
@@ -16,8 +16,12 @@ Avo.configure do |config|
   end
 
   ## == Authentication ==
-  # config.current_user_method = {}
-  # config.authenticate_with = {}
+  config.current_user_method = :current_user
+  config.current_user_resource_name = :current_user
+  config.sign_out_path_name = :destroy_user_session_path
+  config.authenticate_with do
+    redirect_to '/users/sign_in' unless user_signed_in?
+  end
 
   ## == Authorization ==
   # config.authorization_methods = {
